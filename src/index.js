@@ -4,20 +4,37 @@ import faker from 'faker';
 import CommentDetail from './CommentDetail';
 import ApprovalCard from './ApprovalCard';
 
+const Comments = [
+	{
+		id: 0,
+		name: 'Sam',
+		comment: 'All is great!',
+		time: '4:25pm'
+	},
+	{
+		id: 1,
+		name: 'Jack',
+		comment: 'We will do it',
+		time: '5:45pm'
+	},
+	{
+		id: 2,
+		name: 'Dwayne',
+		comment: 'We are the chaps',
+		time: '6:40pm'
+	}
+];
+
 const App = () => {
-	return (
-		<div className="ui container comments">
+	const comments = Comments.map((comment) => {
+		return (
 			<ApprovalCard>
-				<CommentDetail author={'sam'} comment="all is great" date="Today at 4:45pm" />
+				<CommentDetail author={comment.name} comment={comment.comment} time={comment.time} />
 			</ApprovalCard>
-			<ApprovalCard>
-				<CommentDetail author="Jack" comment="we will do it" date="Today at 5:45pm" />
-			</ApprovalCard>
-			<ApprovalCard>
-				<CommentDetail author="Dwayne" comment="we are the chaps" date="Today at 6:40pm" />
-			</ApprovalCard>
-		</div>
-	);
+		);
+	});
+
+	return <div className="ui container comments">{comments}</div>;
 };
 
 ReactDOM.render(<App />, document.querySelector('#root'));
