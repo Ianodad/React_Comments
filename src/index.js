@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import faker from 'faker';
 import CommentDetail from './CommentDetail';
 import ApprovalCard from './ApprovalCard';
+import CommentForm from './CommentForm';
 
 const Comments = [
 	{
@@ -25,16 +25,35 @@ const Comments = [
 	}
 ];
 
-const App = () => {
-	const comments = Comments.map((comment) => {
-		return (
-			<ApprovalCard>
-				<CommentDetail author={comment.name} comment={comment.comment} time={comment.time} />
-			</ApprovalCard>
-		);
-	});
+const CommentSubmit = (commented) => {
+	const id = Comments.length + 1;
+	const time = new Date().toLocaleTimeString();
+	const name = 'Anonymous';
+	const comment = commented;
 
-	return <div className="ui container comments">{comments}</div>;
+
+	Comments.push({ id: id, time: time, name: name, comment: comment });
+	console.log('finished')
+};
+
+const App = () => {
+
+	componentDidMount() {
+		const comments = Comments.map((comment) => {
+			return (
+				<ApprovalCard>
+					<CommentDetail key={comment.id} author={comment.name} comment={comment.comment} time={comment.time} />
+				</ApprovalCard>
+			);
+		});
+	}
+	
+
+	return (
+		<div className="ui container comments">
+			{comments} <CommentForm onSubmit={CommentSubmit} />
+		</div>
+	);
 };
 
 ReactDOM.render(<App />, document.querySelector('#root'));

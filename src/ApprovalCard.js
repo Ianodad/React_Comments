@@ -3,13 +3,21 @@ import React from 'react';
 const ApprovalCard = (props) => {
 	return (
 		<div className="ui card">
-			<div className="content">
-                {props.children}
-			</div>
+			<div className="content">{props.children}</div>
 			<div className="extra content">
-				<div className="ui two buttons">
-					<div className="ui basic green button">Accept</div>
-					<div className="ui basic red button">Reject</div>
+				<div class="actions">
+					<div class="ui mini label labeled button" tabindex="0">
+						<div class="ui button">
+							<i class="heart icon" /> Like
+						</div>
+						<a class="ui basic label">0</a>
+					</div>
+					<div class="ui mini label labeled button " tabindex="0">
+						<div class="ui button">
+							<i class="frown icon" /> Dislike
+						</div>
+						<a class="ui basic label">0</a>
+					</div>
 				</div>
 			</div>
 		</div>
