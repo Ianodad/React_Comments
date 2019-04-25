@@ -2,6 +2,10 @@ import React from 'react';
 import faker from 'faker';
 
 const CommentDetail = (props) => {
+	const deleteComment = () => {
+		console.log(props.id);
+		props.onClick(props.id);
+	};
 	return (
 		<div>
 			<div className="comment">
@@ -14,6 +18,9 @@ const CommentDetail = (props) => {
 					</a>
 					<div className="metadata">
 						<span className="date"> {props.time} </span>
+						<button className="ui button mini" onClick={deleteComment}>
+							Delete
+						</button>
 					</div>
 					<div className="text"> {props.comment} </div>
 				</div>

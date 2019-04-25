@@ -25,20 +25,14 @@ const Comments = [
 	}
 ];
 
-
-
 class App extends Component {
 	state = {
 		comments: Comments
 	};
 
-
-// this function get the new comment from the child the added it to the new state//
+	// this function get the new comment from the child the added it to the new state//
 	commentSubmit = (commented) => {
-
-		let comments = this.state.comments
-
-
+		let comments = this.state.comments;
 
 		const id = Comments.length + 1;
 		const time = new Date().toLocaleTimeString();
@@ -54,8 +48,14 @@ class App extends Component {
 
 		this.setState({
 			comments
-		})
+		});
 		console.log('finished');
+	};
+	onDelete = (id) => {
+		const comments = this.state.comments.filter((comment) => comment.id !== id);
+		this.setState({
+			comments
+		});
 	};
 	render() {
 		return (
@@ -64,13 +64,14 @@ class App extends Component {
 					<ApprovalCard>
 						<CommentDetail
 							key={comment.id}
+							id={comment.id}
 							author={comment.name}
 							comment={comment.comment}
 							time={comment.time}
+							onClick={this.onDelete}
 						/>
 					</ApprovalCard>
 				))}
-
 				<CommentForm onSubmit={this.commentSubmit} />
 			</div>
 		);
