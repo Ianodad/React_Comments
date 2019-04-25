@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import CommentDetail from './CommentDetail';
 import ApprovalCard from './ApprovalCard';
@@ -25,35 +25,56 @@ const Comments = [
 	}
 ];
 
-const CommentSubmit = (commented) => {
-	const id = Comments.length + 1;
-	const time = new Date().toLocaleTimeString();
-	const name = 'Anonymous';
-	const comment = commented;
 
 
-	Comments.push({ id: id, time: time, name: name, comment: comment });
-	console.log('finished')
-};
+class App extends Component {
+	state = {
+		comments: Comments
+	};
 
-const App = () => {
 
-	componentDidMount() {
-		const comments = Comments.map((comment) => {
-			return (
-				<ApprovalCard>
-					<CommentDetail key={comment.id} author={comment.name} comment={comment.comment} time={comment.time} />
-				</ApprovalCard>
-			);
+// this function get the new comment from the child the added it to the new state//
+	commentSubmit = (commented) => {
+
+		let comments = this.state.comments
+
+
+
+		const id = Comments.length + 1;
+		const time = new Date().toLocaleTimeString();
+		const name = 'Anonymous';
+		const comment = commented;
+
+		comments.push({
+			id: id,
+			time: time,
+			name: name,
+			comment: comment
 		});
-	}
-	
 
-	return (
-		<div className="ui container comments">
-			{comments} <CommentForm onSubmit={CommentSubmit} />
-		</div>
-	);
-};
+		this.setState({
+			comments
+		})
+		console.log('finished');
+	};
+	render() {
+		return (
+			<div className="ui container comments">
+				{this.state.comments.map((comment) => (
+					<ApprovalCard>
+						<CommentDetail
+							key={comment.id}
+							author={comment.name}
+							comment={comment.comment}
+							time={comment.time}
+						/>
+					</ApprovalCard>
+				))}
+
+				<CommentForm onSubmit={this.commentSubmit} />
+			</div>
+		);
+	}
+}
 
 ReactDOM.render(<App />, document.querySelector('#root'));
