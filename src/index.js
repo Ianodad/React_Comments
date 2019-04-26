@@ -9,19 +9,25 @@ const Comments = [
 		id: 0,
 		name: 'Sam',
 		comment: 'All is great!',
-		time: '4:25pm'
+		time: '4:25pm',
+		like: 0,
+		dislike: 0
 	},
 	{
 		id: 1,
 		name: 'Jack',
 		comment: 'We will do it',
-		time: '5:45pm'
+		time: '5:45pm',
+		like: 0,
+		dislike: 0
 	},
 	{
 		id: 2,
 		name: 'Dwayne',
 		comment: 'We are the chaps',
-		time: '6:40pm'
+		time: '6:40pm',
+		like: 0,
+		dislike: 0
 	}
 ];
 
@@ -43,7 +49,9 @@ class App extends Component {
 			id: id,
 			time: time,
 			name: name,
-			comment: comment
+			comment: comment,
+			like: 0,
+			dislike: 0
 		});
 
 		this.setState({
@@ -57,11 +65,33 @@ class App extends Component {
 			comments
 		});
 	};
+
+	handleLike = (liked) => {
+		const comments = [ ...this.state.comments ];
+		const index = comments.indexOf(liked);
+		comments[index] = { ...liked };
+		comments[index].like++;
+		this.setState({ comments });
+		// console.log(liked);
+	};
+	handleDislike = (disliked) => {
+		const comments = [ ...this.state.comments ];
+		const index = comments.indexOf(disliked);
+		comments[index] = { ...disliked };
+		comments[index].dislike++;
+		this.setState({ comments });
+	};
 	render() {
 		return (
 			<div className="ui container comments">
 				{this.state.comments.map((comment) => (
-					<ApprovalCard>
+					<ApprovalCard
+						comment={comment}
+						like={comment.like}
+						dislike={comment.dislike}
+						onLike={this.handleLike}
+						onDislike={this.handleDislike}
+					>
 						<CommentDetail
 							key={comment.id}
 							id={comment.id}

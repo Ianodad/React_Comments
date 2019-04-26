@@ -12,7 +12,7 @@ class CommentForm extends Component {
 	render() {
 		return (
 			<div>
-				<form className="ui reply form" onSubmit={this.onFormSubmit}>
+				<form className="ui reply form mini card" onSubmit={this.onFormSubmit}>
 					<div className="field">
 						<textarea
 							text="text"
@@ -21,12 +21,12 @@ class CommentForm extends Component {
 								this.setState({
 									comment: e.target.value
 								})}
-						/>{' '}
-					</div>{' '}
+						/>
+					</div>
 					<button className="ui blue labeled submit icon button" type="submit">
-						<i className="icon edit" /> Add Comment{' '}
-					</button>{' '}
-				</form>{' '}
+						<i className="icon edit" /> Add Comment
+					</button>
+				</form>
 			</div>
 		);
 	}
